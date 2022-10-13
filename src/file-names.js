@@ -16,14 +16,19 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function renameFiles(names) {
-  let arr = names;
-  let k = 0;
-  for (let i=1; i < arr.length; i++) {
-    if (arr[i] === arr[i-1]) {
-      arr[i] = arr[i] + `(${k})`
+  let arr = [];
+  let k = 1;
+  for (let i = 0; i < names.length; i++) {
+    arr.push(names[i])
+    for (let j = i+1; j < names.length; j++){
+      if (arr.includes(names[j])) {
+        names[j] = `${names[j]}(${k})`
+        k++
+      }
     }
-    }
-    console.log (arr)
+    k = 1;
+  }
+  return arr
   // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
 }
