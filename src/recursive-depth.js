@@ -12,49 +12,37 @@ const { NotImplementedError } = require('../extensions/index.js');
  * depthCalc.calculateDepth([[[]]]) => 3
  *
  */
-class DepthCalculator {
-  n=1;
-  b = 1;
-  c=0
-  calculateDepth(arr) {
-    
-    
-   arr.forEach((element, i)=> {
-    let a= this.b
-    if (Array.isArray(element)){
-      this.b += 1
-      this.n = this.n > this.b ? this.n : this.b;
-      this.calculateDepth(element)
-      // this.n = this.n > this.b ? this.n : this.b;
-      // this.b-=1;
-    } else {
-      this.b = a;
-    }
-    
-    // if (Array.isArray(element)) {
-    //   this.calculateDepth(element)
-      
-    //   // this.b -= 1; 
-    //  } else {
-    //   this.n = this.n > this.b ? this.n : this.b;
-    //  }
-     if (i === arr.length - 1) {
-      
-      this.b = a - 1;
-     }
-     
-   }
-   );
-  //  this.b-=1;
-    // this.b=1; 
-   return this.n;
-    // throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-    // throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-}
+ class DepthCalculator {
+  maxDepth = 1;
+  curMaxDepth = 1;
+  curDepth = 0;
 
+
+  calculateDepth(arr) {
+    this.curDepth += 1;
+    arr.forEach((element, i) => {
+      if (Array.isArray(element)) {
+        this.curMaxDepth += 1;
+        this.maxDepth = this.maxDepth > this.curMaxDepth ? this.maxDepth : this.curMaxDepth;
+        this.calculateDepth(element)
+      }
+      //  else {
+      //   this.curMaxDepth = this.curDepth;
+      // }
+      if (i === arr.length - 1) {
+        this.curMaxDepth = this.curDepth - 1;
+      }
+    });
+    this.curDepth -= 1;
+    
+    const result = this.maxDepth;
+    if (this.curDepth === 0) {
+      this.maxDepth = 1;
+      this.curMaxDepth = 1;
+    }
+    return result;
+  }
+}
 module.exports = {
   DepthCalculator
 };
