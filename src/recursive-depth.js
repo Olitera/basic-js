@@ -26,9 +26,6 @@ const { NotImplementedError } = require('../extensions/index.js');
         this.maxDepth = this.maxDepth > this.curMaxDepth ? this.maxDepth : this.curMaxDepth;
         this.calculateDepth(element)
       }
-      //  else {
-      //   this.curMaxDepth = this.curDepth;
-      // }
       if (i === arr.length - 1) {
         this.curMaxDepth = this.curDepth - 1;
       }
